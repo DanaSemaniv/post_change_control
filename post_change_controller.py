@@ -4,14 +4,14 @@ import time
 import vk
 
 from sources.checker import Checker
+from settings import error_message, interval_between_checks
+from token import token
 
 
 class Observer:
     def __init__(self):
         self.sources = []
-        self.session = vk.AuthSession(
-            access_token='782ff118da4f531ded94f801fa3717592e51792fbbbd58a3a98'
-                         'd0edace9b8365bfcc69760b46b8f48cb84')
+        self.session = vk.AuthSession(access_token=token)
         self.vk_api = vk.API(self.session)
 
     def add_source(self, source):
@@ -32,7 +32,6 @@ class Observer:
                         messages, datetime.datetime.now()))
 
     def check_for_changes(self):  # todo: make it asynchronous
-        error_message = 'Cannot get data from source'
         while True:
             changes = []
             for source in self.sources:
@@ -51,7 +50,7 @@ class Observer:
             else:
                 print('nothing changed')
             print('sleeping...')
-            time.sleep(7200)
+            time.sleep(interval_between_checks)
 
     def notify_about_problem(self):
         try:
