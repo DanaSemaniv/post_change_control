@@ -4,6 +4,7 @@ from urllib.request import urlopen
 import lxml.html as lh
 
 from sources.checker import Checker
+from settings import error_message, timeouts
 
 
 class Lieutenant2kBlogChecker(Checker):
@@ -19,7 +20,6 @@ class Lieutenant2kBlogChecker(Checker):
         changes = []
         posts = []
         got_data = False
-        timeouts = [10, 20, 30, 50]
 
         for timeout in timeouts:
             try:
@@ -61,4 +61,4 @@ class Lieutenant2kBlogChecker(Checker):
 
             return changes
 
-        return 'Cannot get data from source'
+        return error_message
