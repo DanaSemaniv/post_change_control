@@ -9,7 +9,8 @@ from settings import error_message, timeouts
 
 class Lieutenant2kBlogChecker(Checker):
     def __init__(self):
-        self.last_post = None
+        # self.last_post = None
+        self.last_post = 'http://lieutenant2k.livejournal.com/599535.html'
         self.tags = ['алгебра', 'институт', 'сессия', 'студенты',
                      'фпм', 'работа', 'анекдот', 'диплом']
 
