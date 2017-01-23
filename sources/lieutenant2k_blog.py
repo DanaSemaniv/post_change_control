@@ -1,7 +1,7 @@
+import lxml.html as lh
+
 from urllib.error import URLError
 from urllib.request import urlopen
-
-import lxml.html as lh
 
 from sources.checker import Checker
 from settings import error_message, timeouts
