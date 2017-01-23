@@ -5,7 +5,7 @@ import vk
 
 from sources.checker import Checker
 from settings import error_message, interval_between_checks
-from token import token
+from access_token import token
 
 
 class Observer:
