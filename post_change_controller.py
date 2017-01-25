@@ -4,7 +4,10 @@ import time
 import vk
 
 from sources.checker import Checker
-from settings import error_message, interval_between_checks
+from settings import (
+    error_message,
+    sleep_time,
+)
 from access_token import token
 
 
@@ -31,11 +34,20 @@ class Observer:
                     'message "{}" sent at {}'.format(
                         messages, datetime.datetime.now()))
 
-    def check_for_changes(self):  # todo: make it asynchronous
+    def check_for_changes(self):
         while True:
-            changes = []
+            sources = []
+            now = datetime.datetime.now()
             for source in self.sources:
+                if not source.last_check or \
+                    now - source.last_check > datetime.timedelta(
+                            seconds=source.interval):
+                    sources.append(source)
+
+            changes = []
+            for source in sources:
                 change = source.get_changes()
+                source.last_check = now
                 if change:
                     if change == error_message:
                         print(error_message, source)
@@ -50,7 +62,7 @@ class Observer:
             else:
                 print('nothing changed')
             print('sleeping...')
-            time.sleep(interval_between_checks)
+            time.sleep(sleep_time)
 
     def notify_about_problem(self):
         try:

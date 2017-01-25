@@ -4,11 +4,18 @@ from urllib.error import URLError
 from urllib.request import urlopen
 
 from sources.checker import Checker
-from settings import error_message, timeouts
+from settings import (
+    error_message,
+    timeouts,
+    packtpub_interval,
+)
 
 
 class PacktpubChecker(Checker):
     def __init__(self):
+        self.interval = packtpub_interval
+        self.last_check = None
+
         self.last_book = None
         self.link = 'https://www.packtpub.com/packt/offers/free-learning/'
 
