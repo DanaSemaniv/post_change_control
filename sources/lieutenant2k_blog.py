@@ -4,13 +4,19 @@ from urllib.error import URLError
 from urllib.request import urlopen
 
 from sources.checker import Checker
-from settings import error_message, timeouts
+from settings import (
+    error_message,
+    timeouts,
+    lieutenant2k_interval,
+)
 
 
 class Lieutenant2kBlogChecker(Checker):
     def __init__(self):
-        # self.last_post = None
-        self.last_post = 'http://lieutenant2k.livejournal.com/599535.html'
+        self.interval = lieutenant2k_interval
+        self.last_check = None
+
+        self.last_post = None
         self.tags = ['алгебра', 'институт', 'сессия', 'студенты',
                      'фпм', 'работа', 'анекдот', 'диплом']
 
